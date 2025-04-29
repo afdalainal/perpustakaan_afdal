@@ -3,6 +3,8 @@ Setelah Clone, Pastikan jalankan :
 - php artisan key:generate
 - Konfigurasi .env
 - php artisan migrate
+- php artisan db:seed
+- php artisan migrate:fresh --seed
 - npm install
 - npm run dev
 - npm run dev
