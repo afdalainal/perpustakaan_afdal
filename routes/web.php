@@ -3,13 +3,22 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// Route::get('/dashboard', function () {
+//     return view('superadmin.dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('/dashboard', function () {
-    return view('superadmin.dashboard');
+    return app(\App\Http\Controllers\Superadmin\DashboardController::class)->index();
 })->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::resource('buku', \App\Http\Controllers\Superadmin\BukuController::class);

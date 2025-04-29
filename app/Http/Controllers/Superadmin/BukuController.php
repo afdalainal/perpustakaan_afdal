@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Superadmin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Buku;
+use App\Models\Peminjaman;
+use App\Models\Pengguna;
+
 class BukuController extends Controller
 {
     /**

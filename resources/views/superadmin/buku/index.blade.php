@@ -1,6 +1,7 @@
 @extends('layouts._index')
 
 @section('content')
+
 <section class="section">
     @if (session('success'))
     <div class="alert alert-primary alert-dismissible fade show" role="alert">

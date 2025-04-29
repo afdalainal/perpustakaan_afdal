@@ -15,17 +15,11 @@ class Peminjaman extends Model
         'id_buku', 'id_pengguna', 'tanggal_pinjam', 'tanggal_kembali', 'status'
     ];
 
-    /**
-     * Relasi dengan model Buku
-     */
     public function buku()
     {
         return $this->belongsTo(Buku::class, 'id_buku');
     }
 
-    /**
-     * Relasi dengan model Pengguna
-     */
     public function pengguna()
     {
         return $this->belongsTo(Pengguna::class, 'id_pengguna');

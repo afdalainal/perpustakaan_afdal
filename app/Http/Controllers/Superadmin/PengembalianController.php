@@ -37,17 +37,16 @@ class PengembalianController extends Controller
             'tanggal_pengembalian' => 'required|date',
             'denda' => 'nullable|numeric',
         ]);
-
         $peminjaman = Peminjaman::findOrFail($validated['id_peminjaman']);
         $peminjaman->update([
             'status' => 'dikembalikan',
             'tanggal_kembali' => $validated['tanggal_pengembalian']
         ]);
+        $buku = $peminjaman->buku;
+        $buku->increment('stok');
         Pengembalian::create($validated);
         return redirect()->route('pengembalian.index')->with('success', 'Pengembalian berhasil dicatat!');
     }
-
-
 
     /**
      * Display the specified resource.
@@ -73,16 +72,23 @@ class PengembalianController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'id_peminjaman' => 'required|exists:peminjaman,id',
             'tanggal_pengembalian' => 'required|date',
             'denda' => 'nullable|numeric',
         ]);
 
         $pengembalian = Pengembalian::findOrFail($id);
-        $pengembalian->update($validated);
-
+        $pengembalian->update([
+            'tanggal_pengembalian' => $validated['tanggal_pengembalian'],
+            'denda' => $validated['denda'] ?? null, 
+        ]);
+        $peminjaman = $pengembalian->peminjaman;
+        $peminjaman->update([
+            'status' => 'dikembalikan',
+            'tanggal_kembali' => $validated['tanggal_pengembalian'],
+        ]);
         return redirect()->route('pengembalian.index')->with('success', 'Data pengembalian berhasil diperbarui!');
     }
+
 
     /**
      * Remove the specified resource from storage.

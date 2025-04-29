@@ -40,11 +40,12 @@ class PeminjamanController extends Controller
             'tanggal_pinjam' => 'required|date',
             'status' => 'required|in:dipinjam,dikembalikan',
         ]);
-
+        $buku = Buku::findOrFail($validated['id_buku']);
+        $buku->decrement('stok');
         Peminjaman::create($validated);
-
         return redirect()->route('peminjaman.index')->with('success', 'Peminjaman berhasil dilakukan!');
     }
+
 
     /**
      * Display the specified resource.

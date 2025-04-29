@@ -49,14 +49,6 @@
 
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label for="tanggal_kembali">Tanggal Kembali</label>
-                                    <input type="date" name="tanggal_kembali" id="tanggal_kembali" class="form-control"
-                                        value="{{ $peminjaman->tanggal_kembali }}">
-                                </div>
-                            </div>
-
-                            <div class="col-sm-12">
-                                <div class="form-group">
                                     <label for="status">Status</label>
                                     <select name="status" id="status" class="form-control" required>
                                         <option value="dipinjam"
