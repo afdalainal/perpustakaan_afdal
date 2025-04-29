@@ -35,15 +35,18 @@
                                         <h6>Status Peminjaman</h6>
                                     </div>
                                     <div class="card-body">
-                                        <p>Buku Dipinjam: {{ $totalDipinjam ?? 0 }}</p>
-                                        <p>Pengguna Aktif: {{ $totalPenggunaAktif ?? 0 }}</p>
+                                        <p>Total Peminjaman: {{ $totalDipinjam + $totalPenggunaAktif }}
+                                        </p>
+                                        <p>Masih Dipinjam: {{ $totalDipinjam }}</p>
+                                        <p>Sudah Dikembalikan: {{ $totalPenggunaAktif }}</p>
                                     </div>
                                 </div>
+
                             </div>
                             <div class="col-md-4">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h6>Statistik Pengunjung</h6>
+                                        <h6>Pengunjung</h6>
                                     </div>
                                     <div class="card-body">
                                         <p>Siswa: {{ $totalSiswa ?? 0 }}</p>

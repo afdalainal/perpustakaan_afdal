@@ -38,14 +38,27 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $pinjam->buku->judul }}</td>
                         <td>{{ $pinjam->pengguna->nama }}</td>
-                        <td>{{ $pinjam->tanggal_pinjam }}</td>
-                        <td>{{ $pinjam->tanggal_kembali ?? '-' }}</td>
-                        <td>{{ ucfirst($pinjam->status) }}</td>
+                        <td>{{ \Carbon\Carbon::parse($pinjam->tanggal_pinjam)->translatedFormat('d F Y') }}</td>
+                        <td>
+                            {{ $pinjam->tanggal_kembali ? \Carbon\Carbon::parse($pinjam->tanggal_kembali)->translatedFormat('d F Y') : '-' }}
+                        </td>
+                        <td>
+                            @if ($pinjam->status === 'dipinjam')
+                            <span class="badge bg-warning text-dark">{{ ucfirst($pinjam->status) }}</span>
+                            @elseif ($pinjam->status === 'dikembalikan')
+                            <span class="badge bg-danger">{{ ucfirst($pinjam->status) }}</span>
+                            @else
+                            <span class="badge bg-secondary">{{ ucfirst($pinjam->status) }}</span>
+                            @endif
+                        </td>
+
                         <td>
                             <div class="btn-group btn-group-sm">
+                                @if ($pinjam->status !== 'dikembalikan')
                                 <a href="{{ route('peminjaman.edit', $pinjam->id) }}" class="btn btn-outline-primary">
                                     <i data-feather="edit"></i>
                                 </a>
+                                @endif
 
                                 <form action="{{ route('peminjaman.destroy', $pinjam->id) }}" method="POST"
                                     onclick="return confirm('Are you sure?')">

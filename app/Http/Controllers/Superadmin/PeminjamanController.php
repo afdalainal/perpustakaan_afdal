@@ -24,7 +24,7 @@ class PeminjamanController extends Controller
      */
     public function create()
     {
-        $bukus = Buku::all();
+        $bukus = Buku::where('stok', '>', 0)->get();
         $penggunas = Pengguna::all();
         return view('superadmin.peminjaman.create', compact('bukus', 'penggunas'));
     }

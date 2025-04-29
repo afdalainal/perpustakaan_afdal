@@ -37,8 +37,12 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $kembali->peminjaman->buku->judul }}</td>
                         <td>{{ $kembali->peminjaman->pengguna->nama }}</td>
-                        <td>{{ $kembali->tanggal_pengembalian }}</td>
-                        <td>{{ $kembali->denda ?? '-' }}</td>
+                        <td>
+                            {{ $kembali->tanggal_pengembalian ? \Carbon\Carbon::parse($kembali->tanggal_pengembalian)->translatedFormat('d F Y') : '-' }}
+                        </td>
+                        <td>
+                            {{ $kembali->denda ? 'Rp ' . number_format($kembali->denda, 2, ',', '.') : '-' }}
+                        </td>
                         <td>
                             <div class="btn-group btn-group-sm">
                                 <a href="{{ route('pengembalian.edit', $kembali->id) }}"

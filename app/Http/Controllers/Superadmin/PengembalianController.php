@@ -96,8 +96,13 @@ class PengembalianController extends Controller
     public function destroy($id)
     {
         $pengembalian = Pengembalian::findOrFail($id);
+        $peminjaman = Peminjaman::findOrFail($pengembalian->id_peminjaman);
+        $peminjaman->update([
+            'status' => 'dipinjam',
+            'tanggal_kembali' => null,
+        ]);
         $pengembalian->delete();
-
-        return redirect()->route('pengembalian.index')->with('success', 'Data pengembalian berhasil dihapus!');
+        return redirect()->route('pengembalian.index')->with('success', 'Data pengembalian berhasil dihapus dan peminjaman diperbarui!');
     }
+
 }

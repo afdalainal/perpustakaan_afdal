@@ -39,7 +39,15 @@
                         <td>{{ $bukus->penulis }}</td>
                         <td>{{ $bukus->penerbit }}</td>
                         <td>{{ $bukus->tahun_terbit }}</td>
-                        <td>{{ $bukus->stok }}</td>
+                        <td>
+                            @if ($bukus->stok < 5) <span class="badge bg-danger">{{ $bukus->stok }}</span>
+                                {{-- Merah: stok kritis --}}
+                                @elseif ($bukus->stok <= 10) <span class="badge bg-warning text-dark">
+                                    {{ $bukus->stok }}</span> {{-- Kuning: stok menipis --}}
+                                    @else
+                                    <span class="badge bg-success">{{ $bukus->stok }}</span> {{-- Hijau: stok aman --}}
+                                    @endif
+                        </td>
                         <td>
                             <div class="btn-group btn-group-sm">
                                 <a href="{{ route('buku.edit', $bukus->id) }}" class="btn btn-outline-primary">

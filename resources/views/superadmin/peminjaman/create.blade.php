@@ -17,7 +17,8 @@
                                     <label for="id_buku">Buku</label>
                                     <select name="id_buku" id="id_buku" class="form-control" required>
                                         @foreach ($bukus as $buku)
-                                        <option value="{{ $buku->id }}">{{ $buku->judul }}</option>
+                                        <option value="{{ $buku->id }}">{{ $buku->judul }} - Stok {{ $buku->stok }}
+                                        </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -47,7 +48,6 @@
                                     <label for="status">Status</label>
                                     <select name="status" id="status" class="form-control" required>
                                         <option value="dipinjam">Dipinjam</option>
-                                        <option value="dikembalikan">Dikembalikan</option>
                                     </select>
                                 </div>
                             </div>

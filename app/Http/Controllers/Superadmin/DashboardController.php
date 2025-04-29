@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Buku;
 use App\Models\Peminjaman;
+use App\Models\Pengembalian;
 use App\Models\Pengguna;
 
 class DashboardController extends Controller
@@ -17,17 +18,25 @@ class DashboardController extends Controller
     public function index()
     {
         $totalBuku = Buku::count();
+
         $bukuFavorit = Buku::withCount('peminjaman')
             ->orderBy('peminjaman_count', 'desc')
             ->first();
+
+        $totalPeminjaman = Peminjaman::count();
         $totalDipinjam = Peminjaman::where('status', 'dipinjam')->count();
-        $totalPenggunaAktif = Pengguna::whereHas('peminjaman', function ($query) {
-            $query->where('status', 'dipinjam');
-        })->count();
+        $totalPenggunaAktif = $totalPeminjaman - $totalDipinjam; 
+
         $totalSiswa = Pengguna::where('jenis_pengguna', 'siswa')->count();
         $totalDosen = Pengguna::where('jenis_pengguna', 'dosen')->count();
+
         return view('superadmin.dashboard', compact(
-            'totalBuku', 'bukuFavorit', 'totalDipinjam', 'totalPenggunaAktif', 'totalSiswa', 'totalDosen'
+            'totalBuku',
+            'bukuFavorit',
+            'totalDipinjam',
+            'totalPenggunaAktif',
+            'totalSiswa',
+            'totalDosen'
         ));
     }
 
